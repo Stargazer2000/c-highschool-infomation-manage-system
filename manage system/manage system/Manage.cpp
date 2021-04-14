@@ -1,12 +1,14 @@
 #include"Manage.h"
 void manage::menu()
 {
-	cout << "欢迎使用高校信息管理系统1.0版本" << endl;
+	cout << "请输入操作：" << endl;
 	cout << "1.添加新的人员" << endl;
 	cout << "2.删除一个人员" << endl;
 	cout << "3.查找某个人员" << endl;
 	cout << "4.显示某特定职位所有人员" << endl;
-	cout << "5.退出系统" << endl;
+	cout << "5.显示某一学院所有人员" << endl;
+	cout << "6.对行政人员工资的整体调整" << endl;
+	cout << "7.退出系统" << endl;
 	int opreation;
 	cin >> opreation;
 	switch (opreation)
@@ -23,6 +25,12 @@ void manage::menu()
 	case 4:
 		this->print_all_department();
 		break;
+	case 5:
+		this->print_all_depart();
+		break;
+	case 6:
+		this->salary_change();
+		break;
 	default:
 	{
 		save();
@@ -30,6 +38,7 @@ void manage::menu()
 		break;
 	}
 	}
+	system("pause");
 }
 void manage::save()
 {
@@ -127,7 +136,7 @@ void manage::getinfo()
 			string name;
 			int sex;
 			string depart;
-			int salary;
+			double salary;
 			bool if_delect;
 			ifs >> ID
 				>> name
@@ -324,6 +333,37 @@ void manage::print_all_department()
 		break;
 	}
 }
+void manage::print_all_depart()
+{
+	string search_depart;
+	cout << "请输入要查询的学院：";
+	cin >> search_depart;
+	int t1 = 1, t2 = 1;
+	for (int i = 0;i < this->all_people_num;i++)
+	{
+		if (this->Array[i]->depart == search_depart&&this->Array[i]->if_delect)
+		{
+			if (this->Array[i]->department == 1)
+			{
+				if (t1) {
+					cout << "学生：" << endl;
+					printf("卡号\t姓名\t性别\t学院\t入学年份\n");
+					t1--;
+				}
+				this->Array[i]->show_info();
+			}
+			else
+			{
+				if (t2) {
+					cout << "教师：" << endl;
+					printf("卡号\t姓名\t性别\t学院\t教授科目\t教龄\n");
+					t2--;
+				}
+				this->Array[i]->show_info();
+			}
+		}
+	}
+}
 void manage::sreach()
 {
 	int flag = 1;
@@ -406,6 +446,15 @@ void manage::sreach()
 		if (flag) cout << "未找到此人！" << endl;
 	}
 }
+void manage::salary_change()
+{
+	double salary_cg = 0;
+	cout << "请输入对工资的整体调整：" << endl;
+	cin >> salary_cg;
+	for (int i = 0;i < this->all_people_num;i++)
+		if (this->Array[i]->department == 3) this->Array[i]->salary += salary_cg;
+	printf("此次对工资的调整为%.2lf￥\n", salary_cg);
+}
 bool manage::check(int ID, int t, people** mid)
 {
 	for (int i = 0;i < this->all_people_num + t;i++)
@@ -424,7 +473,19 @@ void manage::delet()
 	{
 		if (delet_id == this->Array[i]->ID)
 		{
+			int delect_confirm;
 			flag = 0;
+			cout << "要删除的人员信息如下："<<endl;
+			printf("卡号\t姓名\t性别\t学院\t入学年份\n");
+			this->Array[i]->show_info();
+			cout << "确定删除该人员？" << endl;
+			cout << "1.确定" << endl << "2.取消" << endl;
+			cin >> delect_confirm;
+			if (delect_confirm == 2) {
+				cout << "已取消操作！" << endl;
+				return;
+			}
+			cout << "已删除该人员！" << endl;
 			this->Array[i]->if_delect = 0;
 			all_people_num_change--;
 		}
@@ -438,4 +499,4 @@ manage::~manage()
 		delete[] this->Array;
 		this->Array = NULL;
 	}
-}
+} 

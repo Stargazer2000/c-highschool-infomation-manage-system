@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include<fstream>
+#include<cstdlib>
 #include"people.h"
 #include"student.h"
 #include"teacher1.h"
@@ -14,7 +15,9 @@ public:
 	void getinfo();//从文件读取
 	void add_new();//添加新人员
 	void print_all_department();//打印特定职位全部人员
+	void print_all_depart();//打印特定学院全部人员
 	void sreach();//按卡号搜索
+	void salary_change();//对工资的整体调整
 	void delet();//删除
 	void menu();//菜单
 	void save();//退出保存
