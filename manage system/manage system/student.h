@@ -5,7 +5,7 @@ using namespace std;
 class student :public people
 {
 public:
-	student(int, string, int, string, int) ;
+	student(int, string, int, int, int) ;
 	virtual void show_info();
 	virtual string get_apartment_info();
 private:

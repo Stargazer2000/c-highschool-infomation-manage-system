@@ -1,5 +1,5 @@
 #include"student.h"
-student::student(int ID, string name, int sex, string depart, int year)
+student::student(int ID, string name, int sex, int depart, int year)
 {
 	this->ID = ID;
 	this->name = name;
@@ -12,7 +12,7 @@ void student::show_info()
 	cout <<left<<setw(8)<< this->ID << left<<setw(8) << this->name ;
 	if (this->sex == 1) printf("ÄÐ\t");
 	else printf("Å®\t");
-	cout << this->depart << "\t" << this->year << endl;
+	cout << depart_name1[this->depart] << "\t" << this->year << endl;
 }
 string student::get_apartment_info()
 {

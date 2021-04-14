@@ -15,6 +15,7 @@ class manage
 public:
 	void getinfo();//从文件读取
 	void add_new();//添加新人员
+	void add_new_department();//增加新学院
 	void print_all_department();//打印特定职位全部人员
 	void print_all_depart();//打印特定学院全部人员
 	void sreach();//按卡号搜索
@@ -24,7 +25,9 @@ public:
 	void save();//退出保存
 	bool check(int ID, int t, people** mid);//检查输入学号是否重复
 	~manage();
+	string depart_name[100];
 private:
 	int all_people_num = 0;
 	people** Array = NULL;
+	int department_num = 0;
 };

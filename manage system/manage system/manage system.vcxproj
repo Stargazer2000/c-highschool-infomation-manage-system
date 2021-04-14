@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manage.cpp" />
+    <ClCompile Include="people.cpp" />
     <ClCompile Include="student.cpp" />
     <ClCompile Include="teacher1.cpp" />
     <ClCompile Include="teacher2.cpp" />
