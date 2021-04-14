@@ -7,11 +7,13 @@
 #include"teacher2.h"
 #define FILENAME "data.txt"
 using namespace std;
+static int all_people_num_change = 0;
 class manage
 {
 public:
+	void getinfo();//从文件读取
 	void add_new();//添加新人员
-	void print_all();//打印特定学院全部人员
+	void print_all_department();//打印特定职位全部人员
 	void sreach();//按卡号搜索
 	void delet();//删除
 	void menu();//菜单

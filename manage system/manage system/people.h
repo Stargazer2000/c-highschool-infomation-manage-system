@@ -13,6 +13,7 @@ public:
 	int year;
 	string subject;
 	double salary;
+	bool if_delect;
 	virtual void show_info() = 0;
 	virtual string get_apartment_info() = 0;
 private:

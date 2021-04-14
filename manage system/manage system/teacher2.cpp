@@ -9,6 +9,10 @@ teacher2::teacher2(int ID, string name, int sex, string depart,double salary)
 }
 void teacher2::show_info()
 {
+	cout<<this->ID<<'\t'<< this->name<<'\t';
+	if (this->sex == 1) printf("ÄÐ\t");
+	else printf("Å®\t");
+	cout<<this->depart<<'\t'<< this->salary<<endl;
 }
 string teacher2::get_apartment_info()
 {
