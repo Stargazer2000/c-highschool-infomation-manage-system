@@ -2,6 +2,7 @@
 #include <iostream>
 #include<fstream>
 #include<cstdlib>
+#include<iomanip>
 #include"people.h"
 #include"student.h"
 #include"teacher1.h"

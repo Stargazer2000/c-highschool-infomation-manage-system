@@ -1,5 +1,5 @@
 #include"teacher2.h"
-teacher2::teacher2(int ID, string name, int sex, string depart,double salary)
+teacher2::teacher2(int ID, string name, int sex, string depart, double salary)
 {
 	this->ID = ID;
 	this->name = name;
@@ -9,11 +9,11 @@ teacher2::teacher2(int ID, string name, int sex, string depart,double salary)
 }
 void teacher2::show_info()
 {
-	cout<<this->ID<<'\t'<< this->name<<'\t';
+	cout <<left<<setw(8) <<this->ID << left<<setw(8) << this->name ;
 	if (this->sex == 1) printf("ÄÐ\t");
 	else printf("Å®\t");
-	cout<<this->depart<<'\t';
-	printf("%.2lf\n", this->salary);
+	cout <<left<<setw(8) <<this->depart ;
+	printf("\t%.2lf\n", this->salary);
 }
 string teacher2::get_apartment_info()
 {

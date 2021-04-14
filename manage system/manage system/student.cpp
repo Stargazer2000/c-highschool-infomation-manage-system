@@ -9,10 +9,10 @@ student::student(int ID, string name, int sex, string depart, int year)
 }
 void student::show_info()
 {
-	cout << this->ID << '\t' << this->name << '\t';
+	cout <<left<<setw(8)<< this->ID << left<<setw(8) << this->name ;
 	if (this->sex == 1) printf("ÄĞ\t");
 	else printf("Å®\t");
-	cout << this->depart << '\t' << this->year << endl;
+	cout << this->depart << "\t" << this->year << endl;
 }
 string student::get_apartment_info()
 {

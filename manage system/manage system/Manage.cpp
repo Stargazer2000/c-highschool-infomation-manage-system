@@ -1,14 +1,16 @@
 #include"Manage.h"
 void manage::menu()
 {
-	cout << "请输入操作：" << endl;
-	cout << "1.添加新的人员" << endl;
-	cout << "2.删除一个人员" << endl;
-	cout << "3.查找某个人员" << endl;
-	cout << "4.显示某特定职位所有人员" << endl;
-	cout << "5.显示某一学院所有人员" << endl;
-	cout << "6.对行政人员工资的整体调整" << endl;
-	cout << "7.退出系统" << endl;
+	cout << "------------------------------------------" << endl;
+	cout << "|请输入操作：                            |" << endl;
+	cout << "|1.添加新的人员                          |" << endl;
+	cout << "|2.删除一个人员                          |" << endl;
+	cout << "|3.查找某个人员                          |" << endl;
+	cout << "|4.显示某特定职位所有人员                |" << endl;
+	cout << "|5.显示某一学院所有人员                  |" << endl;
+	cout << "|6.对行政人员工资的整体调整              |" << endl;
+	cout << "|7.退出系统                              |" << endl;
+	cout << "------------------------------------------" << endl;
 	int opreation;
 	cin >> opreation;
 	switch (opreation)
@@ -294,7 +296,7 @@ void manage::print_all_department()
 	{
 	case 1://学生卡号, 姓名, 性别, 学院, 入学年份
 	{
-		printf("卡号\t姓名\t性别\t学院\t入学年份\n");
+		printf("卡号\t姓名\t性别\t学院\t\t入学年份\n");
 		for (int i = 0;i < this->all_people_num;i++)
 		{
 			if (this->Array[i]->department == 1 && this->Array[i]->if_delect)
@@ -306,7 +308,7 @@ void manage::print_all_department()
 	}
 	case 2://教师卡号, 姓名, 性别, 学院, 教授科目, 教龄
 	{
-		printf("卡号\t姓名\t性别\t学院\t教授科目\t教龄\n");
+		printf("卡号\t姓名\t性别\t学院\t\t教授科目\t教龄\n");
 		for (int i = 0;i < this->all_people_num;i++)
 		{
 			if (this->Array[i]->department == 2 && this->Array[i]->if_delect)
@@ -318,7 +320,7 @@ void manage::print_all_department()
 	}
 	case 3://卡号, 姓名, 性别, 部门, 每月工资(带有两位小数)
 	{
-		printf("卡号\t姓名\t性别\t部门\t每月工资\n");
+		printf("卡号\t姓名\t性别\t部门\t\t每月工资\n");
 		for (int i = 0;i < this->all_people_num;i++)
 		{
 			if (this->Array[i]->department == 3 && this->Array[i]->if_delect)
@@ -347,7 +349,7 @@ void manage::print_all_depart()
 			{
 				if (t1) {
 					cout << "学生：" << endl;
-					printf("卡号\t姓名\t性别\t学院\t入学年份\n");
+					printf("卡号\t姓名\t性别\t学院\t\t入学年份\n");
 					t1--;
 				}
 				this->Array[i]->show_info();
@@ -356,7 +358,7 @@ void manage::print_all_depart()
 			{
 				if (t2) {
 					cout << "教师：" << endl;
-					printf("卡号\t姓名\t性别\t学院\t教授科目\t教龄\n");
+					printf("卡号\t姓名\t性别\t学院\t\t教授科目\t教龄\n");
 					t2--;
 				}
 				this->Array[i]->show_info();
@@ -499,4 +501,4 @@ manage::~manage()
 		delete[] this->Array;
 		this->Array = NULL;
 	}
-} 
+}
