@@ -1,5 +1,5 @@
 # c-highschool-infomation-manage-system
-高校人员管理系统1.0
+高校人员管理系统功能强化版1.0
 ====
 1.安装？
 ------
