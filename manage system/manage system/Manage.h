@@ -23,9 +23,10 @@ public:
 	void delet();//删除
 	void menu();//菜单
 	void save();//退出保存
+	bool check_department(string);//检查创建新学院时有无重复
 	bool check(int ID, int t, people** mid);//检查输入学号是否重复
 	~manage();
-	string depart_name[100];
+	string* depart_name;
 private:
 	int all_people_num = 0;
 	people** Array = NULL;

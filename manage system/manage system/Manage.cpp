@@ -39,6 +39,7 @@ void manage::menu()
 		break;
 	default:
 	{
+		cout << "系统已退出！" << endl;
 		save();
 		exit(0);
 		break;
@@ -85,13 +86,20 @@ void manage::save()
 	}
 	ofs.close();
 }
+bool manage::check_department(string s_check)
+{
+	for (int i = 1;i <= this->department_num;i++)
+		if (this->depart_name[i] == s_check)
+			return 0;
+	return 1;
+}
 void manage::getinfo()
 {
 	ifstream ifs;
 	ifs.open(FILENAME, ios::in);
 	ifs >> this->all_people_num;
 	ifs >> this->department_num;
-	/*depart_name = new string[department_num + 1];*/
+	depart_name = new string[department_num + 1];
 	this->Array = new people * [all_people_num];
 	for (int i = 1;i <= this->department_num;i++)
 		ifs >> depart_name[i];
@@ -228,6 +236,9 @@ void manage::add_new()
 				man = new student(ID, name, sex, department, year);
 				man->department = depart;
 				man->get_depart_name(this->depart_name);
+				cout << "已成功添加该人员！人员信息如下：" << endl;
+				printf("卡号\t姓名\t性别\t学院\t\t入学年份\n");
+				man->show_info();
 				break;
 			}
 			case 2://教师卡号, 姓名, 性别, 学院, 教授科目, 教龄
@@ -267,6 +278,9 @@ void manage::add_new()
 				man = new teacher1(ID, name, sex, department, sub, year);
 				man->department = depart;
 				man->get_depart_name(this->depart_name);
+				cout << "已成功添加该人员！人员信息如下：" << endl;
+				printf("卡号\t姓名\t性别\t学院\t\t教授科目\t教龄\n");
+				man->show_info();
 				break;
 			}
 			case 3://卡号, 姓名, 性别, 部门, 每月工资(带有两位小数)
@@ -296,6 +310,9 @@ void manage::add_new()
 				cin >> salary;
 				man = new teacher2(ID, name, sex, department, salary);
 				man->department = depart;
+				cout << "已成功添加该人员！人员信息如下：" << endl;
+				printf("卡号\t姓名\t性别\t部门\t\t每月工资\n");
+				man->show_info();
 				break;
 			}
 			default:
@@ -315,8 +332,19 @@ void manage::add_new()
 void manage::add_new_department()
 {
 	this->department_num++;
+	string* newspace = new string[department_num + 1];
+	for (int i = 1;i <= department_num - 1;i++) newspace[i] = depart_name[i];
 	cout << "请输入要增设的学院的名称：" << endl;
-	cin >> this->depart_name[department_num];
+	while (1)
+	{
+		cin >> newspace[department_num];
+		if (check_department(newspace[department_num])) break;
+		cout << "此学院已存在！请重新输入！" << endl;
+	}
+	cout << "已成功添加" << newspace[department_num] << '!' << endl;
+	delete[] depart_name;
+	depart_name = newspace;
+	for (int i = 0;i < all_people_num;i++) this->Array[i]->get_depart_name(depart_name);
 }
 void manage::print_all_department()
 {
@@ -370,7 +398,8 @@ void manage::print_all_department()
 void manage::print_all_depart()
 {
 	int search_depart;
-	cout << "请输入要查询的学院："<<endl;
+	bool if_found = 1;
+	cout << "请输入要查询的学院：" << endl;
 	for (int i = 1;i <= department_num;i++) cout << i << '.' << depart_name[i] << endl;
 	while (1)
 	{
@@ -386,6 +415,7 @@ void manage::print_all_depart()
 			if (this->Array[i]->department == 1)
 			{
 				if (t1) {
+					if_found = 0;
 					cout << "学生：" << endl;
 					printf("卡号\t姓名\t性别\t学院\t\t入学年份\n");
 					t1--;
@@ -395,6 +425,7 @@ void manage::print_all_depart()
 			else
 			{
 				if (t2) {
+					if_found = 0;
 					cout << "教师：" << endl;
 					printf("卡号\t姓名\t性别\t学院\t\t教授科目\t教龄\n");
 					t2--;
@@ -403,6 +434,7 @@ void manage::print_all_depart()
 			}
 		}
 	}
+	if (if_found) cout << depart_name[search_depart] << "没有人员！" << endl;
 }
 void manage::sreach()
 {
@@ -414,6 +446,7 @@ void manage::sreach()
 	if (sreach_way == 1)
 	{
 		int sreach_id;
+		bool s = 1, t1 = 1, t2 = 1;
 		cout << "请输入你要查询的人员卡号：";
 		cin >> sreach_id;
 		for (int i = 0;i < this->all_people_num;i++)
@@ -425,21 +458,33 @@ void manage::sreach()
 				{
 				case 1:
 				{
-					printf_s("卡号\t姓名\t性别\t学院\t入学年份\n");
+					if (s){
+						cout << "学生：" << endl;
+						s=0;
+					}
+					printf_s("卡号\t姓名\t性别\t学院\t\t入学年份\n");
 					this->Array[i]->show_info();
-					break;
+					return;
 				}
 				case 2:
 				{
-					printf_s("卡号\t姓名\t性别\t学院\t教授科目\t教龄\n");
+					if (t1) {
+						cout << "教师：" << endl;
+						t1 = 0;
+					}
+					printf_s("卡号\t姓名\t性别\t学院\t\t教授科目\t教龄\n");
 					this->Array[i]->show_info();
-					break;
+					return;
 				}
 				case 3:
 				{
+					if (t2) {
+						cout << "行政人员：" << endl;
+						t2 = 0;
+					}
 					printf_s("卡号\t姓名\t性别\t部门\t每月工资\n");
 					this->Array[i]->show_info();
-					break;
+					return;
 				}
 				default:
 					break;
@@ -451,6 +496,7 @@ void manage::sreach()
 	else if (sreach_way == 2)
 	{
 		string sreach_name;
+		bool s = 1, t1 = 1, t2 = 1;
 		cout << "请输入你要查询的人员姓名：";
 		cin >> sreach_name;
 		for (int i = 0;i < this->all_people_num;i++)
@@ -462,18 +508,30 @@ void manage::sreach()
 				{
 				case 1:
 				{
-					printf("卡号\t姓名\t性别\t学院\t入学年份\n");
+					if (s) {
+						cout << "学生：" << endl;
+						s = 0;
+					}
+					printf("卡号\t姓名\t性别\t学院\t\t入学年份\n");
 					this->Array[i]->show_info();
 					break;
 				}
 				case 2:
 				{
-					printf("卡号\t姓名\t性别\t学院\t教授科目\t教龄\n");
+					if (t1) {
+						cout << "教师：" << endl;
+						t1 = 0;
+					}
+					printf("卡号\t姓名\t性别\t学院\t\t教授科目\t教龄\n");
 					this->Array[i]->show_info();
 					break;
 				}
 				case 3:
 				{
+					if (t2) {
+						cout << "行政人员：" << endl;
+						t2 = 0;
+					}
 					printf("卡号\t姓名\t性别\t部门\t每月工资\n");
 					this->Array[i]->show_info();
 					break;
@@ -493,7 +551,9 @@ void manage::salary_change()
 	cin >> salary_cg;
 	for (int i = 0;i < this->all_people_num;i++)
 		if (this->Array[i]->department == 3) this->Array[i]->salary += salary_cg;
-	printf("此次对工资的调整为%.2lf￥\n", salary_cg);
+	if (salary_cg > 0) printf("此次对行政人员的整体工资增加了%.2lf￥\n", salary_cg);
+	else if (salary_cg == 0) cout << "没有对行政人员工资进行调整！" << endl;
+	else printf("此次对行政人员的整体工资减少了%.2lf￥\n", -salary_cg);
 }
 bool manage::check(int ID, int t, people** mid)
 {
